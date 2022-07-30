@@ -1,42 +1,54 @@
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
-import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
+'use strict';
 
-class Result {
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
 
-    /*
-     * Complete the 'plusMinus' function below.
-     *
-     * The function accepts INTEGER_ARRAY arr as parameter.
-     */
+let inputString = '';
+let currentLine = 0;
 
-    public static void plusMinus(List<Integer> arr) {
-    // Write your code here
+process.stdin.on('data', function(inputStdin) {
+    inputString += inputStdin;
+});
 
-    }
+process.stdin.on('end', function() {
+    inputString = inputString.split('\n');
 
+    main();
+});
+
+function readLine() {
+    return inputString[currentLine++];
 }
 
-public class Solution {
-    public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+/*
+ * Complete the 'plusMinus' function below.
+ *
+ * The function accepts INTEGER_ARRAY arr as parameter.
+ */
 
-        int n = Integer.parseInt(bufferedReader.readLine().trim());
-
-        List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-            .map(Integer::parseInt)
-            .collect(toList());
-
-        Result.plusMinus(arr);
-
-        bufferedReader.close();
-    }
+function plusMinus(arr) {
+            let i, positive_cont = 0, negative_cont = 0, null_count=0 , n = arr.length, freq_pos , freq_neg, freq_null;
+            
+        for(i=0; i<n; i++){
+            if(arr[i]>0) positive_cont++;
+            else if(arr[i]<0) negative_cont++;
+            else null_count++; 
+        }
+    
+        freq_pos = Math.round((positive_cont/n)*1000)/1000
+        freq_neg = Math.round((negative_cont/n)*1000)/1000;
+        freq_null = Math.round((null_count/n)*1000)/1000
+        
+        console.log(freq_pos.toFixed(6));
+        console.log(freq_neg.toFixed(6));
+        console.log(freq_null.toFixed(6));
 }
+
+function main() {
+    const n = parseInt(readLine().trim(), 10);
+
+    const arr = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
+
+    plusMinus(arr);
+}
+
